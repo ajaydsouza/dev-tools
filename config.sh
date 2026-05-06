@@ -7,6 +7,13 @@
 
 _TOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# ── Local overrides ───────────────────────────────────────────────────────────
+# config.local.sh is gitignored — put your personal paths and tokens there.
+# It is sourced before any defaults below, so its values take precedence.
+_LOCAL_CONFIG="$_TOOLS_DIR/config.local.sh"
+# shellcheck source=/dev/null
+[[ -f "$_LOCAL_CONFIG" ]] && source "$_LOCAL_CONFIG"
+
 # ── Paths ─────────────────────────────────────────────────────────────────────
 
 # Root directory containing all plugin repos (parent of this dev-tools dir by default)
