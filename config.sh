@@ -40,70 +40,12 @@ UPSCAYL_BIN="${UPSCAYL_BIN:-/Applications/Upscayl.app/Contents/Resources/bin/ups
 UPSCAYL_MODELS="${UPSCAYL_MODELS:-/Applications/Upscayl.app/Contents/Resources/models}"
 
 # ── Plugin registries ─────────────────────────────────────────────────────────
-
-# All plugins including pro variants — used by deploy-plugin.sh
-PLUGINS_ALL=(
-  better-search
-  better-search-pro
-  contextual-related-posts
-  contextual-related-posts-pro
-  knowledgebase
-  knowledgebase-pro
-  top-10
-  top-10-pro
-  add-to-all
-  autoclose
-  popular-authors
-  webberzone-code-block-highlighting
-  webberzone-link-warnings
-  where-did-they-go-from-here
-  wzn-invoicing
-  freemkit
-)
-
-# Free-only plugins — used by deploy-to-svn.sh
-PLUGINS_FREE=(
-  better-search
-  contextual-related-posts
-  knowledgebase
-  top-10
-  add-to-all
-  autoclose
-  popular-authors
-  webberzone-code-block-highlighting
-  webberzone-link-warnings
-  where-did-they-go-from-here
-)
-
-# Free/pro pairs — used by sync-pro-to-free.sh
-# Format: "pro-slug free-slug main-php-filename"
-PLUGINS_PAIRS=(
-  "better-search-pro better-search better-search.php"
-  "contextual-related-posts-pro contextual-related-posts contextual-related-posts.php"
-  "knowledgebase-pro knowledgebase knowledgebase.php"
-  "top-10-pro top-10 top-10.php"
-)
-
-# Language file plugin registry — used by update-language-files.sh
-# Format: "dir text-domain type"  (type = pro | free | standalone)
-PLUGINS_LANG=(
-  "better-search-pro                   better-search                      pro"
-  "better-search                       better-search                      free"
-  "contextual-related-posts-pro        contextual-related-posts           pro"
-  "contextual-related-posts            contextual-related-posts           free"
-  "knowledgebase-pro                   knowledgebase                      pro"
-  "knowledgebase                       knowledgebase                      free"
-  "top-10-pro                          top-10                             pro"
-  "top-10                              top-10                             free"
-  "where-did-they-go-from-here         where-did-they-go-from-here        standalone"
-  "popular-authors                     popular-authors                    standalone"
-  "add-to-all                          add-to-all                         standalone"
-  "autoclose                           autoclose                          standalone"
-  "webberzone-code-block-highlighting  webberzone-code-block-highlighting standalone"
-  "webberzone-link-warnings            webberzone-link-warnings           standalone"
-  "wzn-invoicing                       wzn-invoicing                      standalone"
-  "freemkit                            freemkit                           standalone"
-)
+# Define these in config.local.sh:
+#
+#   PLUGINS_ALL=(my-plugin my-plugin-pro ...)        # all plugins incl. pro — deploy-plugin.sh
+#   PLUGINS_FREE=(my-plugin ...)                     # free only — deploy-to-svn.sh
+#   PLUGINS_PAIRS=("my-plugin-pro my-plugin my-plugin.php" ...)  # sync-pro-to-free.sh
+#   PLUGINS_LANG=("my-plugin my-plugin free" ...)   # "dir domain type" — update-language-files.sh
 
 # ── Dependency checker ────────────────────────────────────────────────────────
 
