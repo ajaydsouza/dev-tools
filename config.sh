@@ -19,12 +19,14 @@ GITHUB_ORG="${GITHUB_ORG:-YourOrg}"
 API_BASE="${API_BASE:-https://api.freemius.com/v1}"
 
 # SVN working copy base (used by deploy-to-svn.sh)
-SVN_BASE="${SVN_BASE:-${HOME}/Documents/Dev/wporgsvn}"
+# e.g. SVN_BASE="$HOME/svn"
+SVN_BASE="${SVN_BASE:-}"
 
 # Local WordPress test site plugin directories (used by deploy-plugin.sh)
-SITE_NETWORK="${SITE_NETWORK:-${HOME}/Documents/Dev/Sites/wp-network/wp-content/plugins}"
-SITE_SINGLE="${SITE_SINGLE:-${HOME}/Documents/Dev/Sites/wpstaging.lcl/wp-content/plugins}"
-SITE_WZLCL="${SITE_WZLCL:-${HOME}/Documents/Dev/Sites/webberz0ne.lcl/htdocs/wp-content/plugins}"
+# e.g. SITE_NETWORK="$HOME/Sites/mynetwork/wp-content/plugins"
+SITE_NETWORK="${SITE_NETWORK:-}"
+SITE_SINGLE="${SITE_SINGLE:-}"
+SITE_WZLCL="${SITE_WZLCL:-}"
 
 # Upscayl binary and models paths (used by upscale.sh)
 UPSCAYL_BIN="${UPSCAYL_BIN:-/Applications/Upscayl.app/Contents/Resources/bin/upscayl-bin}"
