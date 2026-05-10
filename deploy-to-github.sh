@@ -150,7 +150,7 @@ echo "── Extracting changelog from readme.txt ────"
 CHANGELOG_BODY=$(awk \
   "/^== Changelog ==/{in_changelog=1; next} \
    in_changelog && /^= ${VERSION}[[:space:]]*=/{found=1; next} \
-   found && /^= [0-9]/{exit} \
+   found && /^= /{exit} \
    found{print}" \
   "$README_TXT" | sed '/^[[:space:]]*$/d')
 
