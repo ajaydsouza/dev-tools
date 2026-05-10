@@ -148,7 +148,10 @@ echo "All checks passed for $PLUGIN v$VERSION"
 echo ""
 echo "── Extracting changelog from readme.txt ────"
 CHANGELOG_BODY=$(awk \
-  "/^= ${VERSION}[[:space:]]*=/{found=1; next} found && /^= [0-9]/{exit} found{print}" \
+  "/^== Changelog ==/{in_changelog=1; next} \
+   in_changelog && /^= ${VERSION}[[:space:]]*=/{found=1; next} \
+   found && /^= [0-9]/{exit} \
+   found{print}" \
   "$README_TXT" | sed '/^[[:space:]]*$/d')
 
 if [[ -z "$CHANGELOG_BODY" ]]; then
@@ -156,7 +159,8 @@ if [[ -z "$CHANGELOG_BODY" ]]; then
   exit 1
 fi
 
-PREV_VERSION=$(grep -E "^= [0-9]" "$README_TXT" | grep -v "^= ${VERSION}" | head -1 | sed 's/= //; s/ =//' | tr -d '[:space:]' || true)
+PREV_VERSION=$(awk "/^== Changelog ==/{in_changelog=1; next} in_changelog && /^= [0-9]/{print}" "$README_TXT" \
+  | grep -v "^= ${VERSION}" | head -1 | sed 's/= //; s/ =//' | tr -d '[:space:]' || true)
 echo "Previous version: ${PREV_VERSION:-none found}"
 
 CHANGELOG="## Changelog
