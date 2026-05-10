@@ -453,6 +453,9 @@ if ! ${DRY_RUN}; then
     fi
   done
 
+  info "Step 10b: Regenerating free language files (Freemius always overwrites them)"
+  "${SCRIPT_DIR}/update-language-files.sh" "${PLUGIN_SLUG}" 2>/dev/null || true
+
   success "phpcbf complete on free"
 else
   success "[dry-run] Would run phpcbf in ${FREE_DEST_DIR} and auto-revert ${FREE_MAIN_CLASS} and ${FREE_REVERT_PATHS} if changed"

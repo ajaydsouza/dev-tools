@@ -21,13 +21,16 @@ source "$SCRIPT_DIR/config.sh"
 check_deps gh
 
 CHECK_ONLY=false
+DELETE_RELEASE=""
 PLUGIN=""
 
 usage() {
   echo "Usage: ./deploy-to-github.sh <plugin-name> [--check-only]"
+  echo "       ./deploy-to-github.sh <plugin-name> --delete-release <tag>"
   echo ""
   echo "Options:"
-  echo "  --check-only    Verify versions only; do not create a GitHub release"
+  echo "  --check-only             Verify versions only; do not create a GitHub release"
+  echo "  --delete-release <tag>   Delete an existing release and its tag (e.g. v3.0.0)"
   echo ""
   echo "Checks performed:"
   echo "  - readme.txt Stable tag"
@@ -40,6 +43,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --help | -h) usage; exit 0 ;;
     --check-only) CHECK_ONLY=true; shift ;;
+    --delete-release) DELETE_RELEASE="$2"; shift 2 ;;
     -*) echo "Unknown option: $1" >&2; echo ""; usage >&2; exit 1 ;;
     *) PLUGIN="$1"; shift ;;
   esac
@@ -55,6 +59,14 @@ echo "Plugin directory: $PLUGIN_DIR"
 if [[ ! -d "$PLUGIN_DIR" ]]; then
   echo "ERROR: Plugin directory not found: $PLUGIN_DIR" >&2
   exit 1
+fi
+
+# ── Delete release ────────────────────────────────────────────────────────────
+if [[ -n "$DELETE_RELEASE" ]]; then
+  echo "Deleting GitHub release and tag: $DELETE_RELEASE from $GITHUB_ORG/$PLUGIN"
+  gh release delete "$DELETE_RELEASE" --repo "$GITHUB_ORG/$PLUGIN" --yes --cleanup-tag
+  echo "Deleted release and tag $DELETE_RELEASE from $GITHUB_ORG/$PLUGIN"
+  exit 0
 fi
 
 ERRORS=0
